@@ -44,7 +44,7 @@ contract ICO is ERC20{
           isEnded[owner] = true;
         }
 
-        function distributeToken(address[] calldata receivers, uint amount) external {
+        function distributeToken(address[] calldata receivers, uint amount) external onlyOwner {
             for (uint i = 0; i < receivers.length; i++){
          require(!isDistributed[receivers[i]], "distribution not doner");
           isDistributed[receivers[i]] = true;
