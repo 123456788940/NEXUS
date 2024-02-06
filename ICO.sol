@@ -9,11 +9,13 @@ contract ICO is ERC20{
         require(owner==msg.sender, "only owner has access");
         _;
     }
+    uint public tokenPrice;
     uint public totalPool;
     uint public initialSupply;
-    constructor(address _owner, uint _initialSupply) ERC20("Helix Token", "HLX"){
+    constructor(address _owner, uint _initialSupply, uint _tokenPrice) ERC20("Helix Token", "HLX"){
         _mint(msg.sender, initialSupply);
         initialSupply=_initialSupply;
+        tokenPrice = _tokenPrice;
         owner=_owner;
 
 
@@ -26,10 +28,14 @@ contract ICO is ERC20{
 
     function buyToken(uint amount, uint payableAmount) external onlyOwner {
         require(amount>0, "amount has to be valid");
+        require(payableAmount>0, "amount has to be valid");
+        require(payableAmount == amount * tokenPrice, "not valid payable amount");
          authenticated[owner] = true;
-         _transfer(address(this), msg.sender, payableAmount);
-         transferFrom(msg.sender, address(this), amount);
+         transferFrom(address(this), msg.sender, amount);
+         _transfer(msg.sender, address(this), payableAmount);
          totalPool+=amount;
+         
+         
 
     }
       
