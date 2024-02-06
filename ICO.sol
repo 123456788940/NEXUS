@@ -24,9 +24,10 @@ contract ICO is ERC20{
      mapping(address=>bool) public isDistributed;
      address[] public payees;
 
-    function buyToken(uint amount) external onlyOwner {
+    function buyToken(uint amount, uint payableAmount) external onlyOwner {
         require(amount>0, "amount has to be valid");
          authenticated[owner] = true;
+         _transfer(address(this), msg.sender, payableAmount);
          transferFrom(msg.sender, address(this), amount);
          totalPool+=amount;
 
