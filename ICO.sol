@@ -32,7 +32,7 @@ contract ICO is ERC20{
         require(payableAmount == amount * tokenPrice, "not valid payable amount");
          authenticated[owner] = true;
          transferFrom(address(this), msg.sender, amount);
-         _transfer(msg.sender, address(this), payableAmount);
+         _transfer(msg.sender, owner, payableAmount);
          totalPool+=amount;
          
          
