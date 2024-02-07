@@ -21,7 +21,5 @@ contract IERC is ERC20 {
         _burn(to, amount);
     }
 
-    function trackToken() public view returns(uint) {
-        return trackToken();
-    }
+   
 }
