@@ -5,9 +5,11 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract IERC is ERC20 {
     uint initialSupply;
+    uint priceAgainstUSD;
 
     constructor (uint _initialSupply) ERC20("Helix Token", "HLX") {
         initialSupply = _initialSupply;
+        priceAgainstUSD=10*17;
         _mint(msg.sender, initialSupply);
     }
 
