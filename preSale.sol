@@ -45,13 +45,13 @@ contract PreSale {
     mapping(address=> preSale) public presale;
     mapping(address=>finalization) public finalize;
     function initiateSale() public onlyOwner{
-        isInitiated[investor] = true;
+        isInitiated[owner] = true;
     }
 
 
     function participateInSale(uint amount) public payable{
         require(amount>0, "deposit amount has to have a value");
-        isInitiated[investor] = true;
+        isInitiated[owner] = true;
         require(!presale[msg.sender].hasParticipated, "participation not done yet");
         presale[msg.sender] = preSale({
             participants: msg.sender,
@@ -59,7 +59,7 @@ contract PreSale {
         });
         presale[msg.sender].hasParticipated = true;
        ParticipantFee=amount;
-       Helix.transferFrom(owner, investor, amount);
+      Helix.transferFrom(msg.sender, owner, amount.mul(priceAgainstUSD).div(1 ether));
      
 
     }
