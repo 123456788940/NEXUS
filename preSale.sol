@@ -48,19 +48,14 @@ contract PreSale {
     function participateInSale(uint amount) public payable{
         require(amount>0, "deposit amount has to have a value");
         isInitiated[owner] = true;
-        require(!presale[msg.sender].hasParticipated, "participation not done yet");
-        presale[msg.sender] = preSale({
+        require(!presale[investor].hasParticipated, "participation not done yet");
+        presale[investor] = preSale({
             participants: msg.sender,
             hasParticipated: false
         });
-        presale[msg.sender] = preSale ({
-            participants: msg.sender,
-            hasParticipated: true
-
-        });
        ParticipantFee=amount;
              uint tokenAmount = amount.mul(priceAgainstUSD).div(1 ether);
-      Helix.transferFrom(investor, owner, tokenAmount);
+      Helix.transferFrom(owner, investor, tokenAmount);
      totalTokens-=amount;
 
     }
