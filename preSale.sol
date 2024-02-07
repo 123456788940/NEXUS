@@ -26,7 +26,7 @@ contract PreSale {
        totalTokens=_totalTokens;
         investor=_investor;
         Helix = ERC20(_Helix);
-        priceAgainstUSD=10*17;
+        priceAgainstUSD=10*10**17;
 
         owner=_owner;
         
@@ -38,12 +38,8 @@ contract PreSale {
         bool hasParticipated;
     }
 
-    struct finalization{
-        bool finalized;
-        address saleParticipants;
-    }
     mapping(address=> preSale) public presale;
-    mapping(address=>finalization) public finalize;
+ 
     function initiateSale() public onlyOwner{
         isInitiated[owner] = true;
     }
@@ -57,10 +53,15 @@ contract PreSale {
             participants: msg.sender,
             hasParticipated: false
         });
-        presale[msg.sender].hasParticipated = true;
+        presale[msg.sender] = preSale ({
+            participants: msg.sender,
+            hasParticipated: true
+
+        });
        ParticipantFee=amount;
-      Helix.transferFrom(msg.sender, owner, amount.mul(priceAgainstUSD).div(1 ether));
-     
+             uint tokenAmount = amount.mul(priceAgainstUSD).div(1 ether);
+      Helix.transferFrom(investor, owner, tokenAmount);
+     totalTokens-=amount;
 
     }
 
