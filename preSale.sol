@@ -45,7 +45,7 @@ contract PreSale {
     mapping(address=> preSale) public presale;
     mapping(address=>finalization) public finalize;
     function initiateSale() public onlyOwner{
-        isInitiated[investor] = false;
+        isInitiated[investor] = true;
     }
 
 
@@ -65,15 +65,7 @@ contract PreSale {
     }
 
 
-    function finalizeSale() public onlyOwner{
-      require(!finalize[investor].finalized, "finalization not done yet");
-      finalize[msg.sender] = finalization({
-        finalized: false,
-        saleParticipants: msg.sender
-      });
-      finalize[investor].finalized = true;
     }
 
 
 
-}
