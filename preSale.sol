@@ -49,7 +49,7 @@ contract PreSale {
     }
 
 
-    function participateInSale(uint amount) public {
+    function participateInSale(uint amount) public payable{
         require(amount>0, "deposit amount has to have a value");
         isInitiated[investor] = true;
         require(!presale[msg.sender].hasParticipated, "participation not done yet");
